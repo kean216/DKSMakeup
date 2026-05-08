@@ -1,0 +1,152 @@
+/* RESET & BASE STYLES */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: radial-gradient(circle at top right, #0b1a2e, #000000);
+    color: #e2e8f0;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* MAIN GRID CONTAINER: 4 equal columns for Desktop */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.box {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+}
+
+h1, h2, h3 { color: #00f0ff; margin-bottom: 10px; }
+
+/* --- IMAGE STYLING & HOVER EFFECTS --- */
+.planet-img {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+    object-fit: cover;
+    /* Smooth transition for the hover effect */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+}
+
+/* Hover effect: Zoom in and add a cyan glow */
+.planet-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+}
+
+.large-img { max-height: 350px; }
+.small-img { max-height: 150px; }
+
+/* --- GRID SPANS --- */
+.full-span { grid-column: span 4; }
+
+.header {
+    background: linear-gradient(135deg, #1b2d4e, #0b1a2e);
+    padding: 40px;
+    text-align: center;
+    border-radius: 8px;
+    border-bottom: 4px solid #ffaa00; 
+}
+
+/* Row 3 Spans */
+.r3-fact { grid-column: span 1; }
+.r3-desc { grid-column: span 3; }
+
+/* Row 4 Spans */
+.r4-feature { grid-column: span 4; }
+
+/* Row 5 Spans */
+.r5-stat-left { grid-column: span 1; }
+.r5-stat-main { grid-column: span 2; }
+.r5-stat-right { grid-column: span 1; }
+
+.stat-box {
+    display: grid;
+    place-items: center;
+    border-left: 3px solid #ffaa00;
+}
+
+/* ROW 6 GALLERY: Circular planets with their own hover effect */
+.r6-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.gallery-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.gallery-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Hover effect for gallery: Spin slightly and brighten */
+.gallery-card img:hover {
+    transform: rotate(15deg) scale(1.2);
+    filter: brightness(1.3);
+}
+
+/* Row 7, 8, 9 Spans */
+.r7-half { grid-column: span 2; }
+.r8-feature { grid-column: span 4; }
+.r9-desc { grid-column: span 3; }
+.r9-fact { grid-column: span 1; }
+
+.footer {
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+
+/* TABLET: 2-Column Grid */
+@media (max-width: 1024px) {
+    .grid-container { grid-template-columns: repeat(2, 1fr); }
+    .full-span, .r3-fact, .r3-desc, .r4-feature, .r7-half, .r8-feature, .r9-desc, .r9-fact { 
+        grid-column: span 2; 
+    }
+    /* Teacher Requirement: Using 'order' to rearrange content */
+    .r5-stat-main { grid-column: span 2; order: -1; }
+    .r5-stat-left { grid-column: span 1; order: 1; }
+    .r5-stat-right { grid-column: span 1; order: 2; }
+    .r6-gallery { grid-column: span 2; grid-template-columns: repeat(3, 1fr); }
+}
+
+/* MOBILE: 1-Column Stacking */
+@media (max-width: 768px) {
+    .grid-container { grid-template-columns: 1fr; }
+    .full-span, .r3-fact, .r3-desc, .r4-feature, .r5-stat-left, .r5-stat-main, .r5-stat-right, .r7-half, .r8-feature, .r9-desc, .r9-fact {
+        grid-column: span 1;
+    }
+    .r6-gallery { grid-column: span 1; grid-template-columns: repeat(2, 1fr); }
+}

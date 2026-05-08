@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planetary Database - Grid Layout (Vue Upgraded)</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        .search-container {
+            grid-column: 1 / -1; /* Spans the full grid */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-box {
+            width: 80%;
+            max-width: 500px;
+            padding: 12px;
+            font-size: 1.1rem;
+            border: 2px solid #333;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div class="grid-container">
+
+            <header class="header full-span">
+                <h1>The Planetary Database</h1>
+                <p>A Comprehensive Guide to our Solar System</p>
+            </header>
+
+            <div class="search-container">
+                <input 
+                    type="text" 
+                    class="search-box" 
+                    v-model="searchQuery" 
+                    placeholder="Type a planet name to instantly filter the grid..."
+                >
+            </div>
+
+            <aside class="r3-fact box" v-show="isVisible('mars')">
+                <h3>Mars Fact</h3>
+                <p>Gravity is only 38% of Earth's.</p>
+                <p>Home to Olympus Mons, the tallest volcano in the solar system.</p>
+            </aside>
+            
+            <main class="r3-desc box" v-show="isVisible('mars')">
+                <h2>Mars: The Red Planet</h2>
+                <p>Mars is a dusty, cold, desert world with a very thin atmosphere. The rusty red color comes from iron oxide (rust) on its surface.</p>
+                <img src="images/mars.jpg" alt="Mars" class="planet-img">
+            </main>
+
+            <section class="r4-feature box full-span" v-show="isVisible('jupiter')">
+                <h2>Featured Giant: Jupiter</h2>
+                <img src="images/jupiter.jpg" alt="Jupiter" class="planet-img large-img">
+                <p>Jupiter is the largest planet in our solar system. Its iconic Great Red Spot is a giant storm bigger than Earth.</p>
+            </section>
+
+            <div class="r5-stat-left box stat-box" v-show="isVisible('saturn')">
+                <h3>Saturn's Rings</h3>
+                <p>Made of billions of chunks of ice and rock.</p>
+            </div>
+
+            <div class="r5-stat-main box" v-show="isVisible('saturn')">
+                <h2>Saturn: The Jewel</h2>
+                <img src="images/saturn.jpg" alt="Saturn" class="planet-img small-img">
+                <p>Adorned with a dazzling system of icy rings, Saturn is unique. It is a massive ball made mostly of hydrogen and helium.</p>
+            </div>
+
+            <div class="r5-stat-right box stat-box" v-show="isVisible('saturn')">
+                <h3>Saturn's Moons</h3>
+                <p>Has 146 recognized moons, the most in the solar system.</p>
+            </div>
+
+            <section class="r6-gallery full-span">
+                <div class="gallery-card" v-show="isVisible('mercury')"><img src="images/mercury.jpg" alt="Mercury"><p>Mercury</p></div>
+                <div class="gallery-card" v-show="isVisible('venus')"><img src="images/Venus.jpg" alt="Venus"><p>Venus</p></div>
+                <div class="gallery-card" v-show="isVisible('neptune')"><img src="images/neptune.jpg" alt="Neptune"><p>Neptune</p></div>
+                <div class="gallery-card" v-show="isVisible('uranus')"><img src="images/uranus.jpg" alt="Uranus"><p>Uranus</p></div>
+                <div class="gallery-card" v-show="isVisible('mars')"><img src="images/mars.jpg" alt="Mars"><p>Mars</p></div>
+            </section>
+
+            <div class="r7-half box" v-show="isVisible('venus')">
+                <h2>Venus: Earth's Twin</h2>
+                <img src="images/Venus.jpg" alt="Venus" class="planet-img small-img">
+                <p>Venus is the hottest planet in our solar system. Its thick atmosphere traps heat in a runaway greenhouse effect.</p>
+            </div>
+
+            <div class="r7-half box" v-show="isVisible('mercury')">
+                <h2>Mercury: The Swift Planet</h2>
+                <img src="images/mercury.jpg" alt="Mercury" class="planet-img small-img">
+                <p>Mercury is the smallest planet and closest to the Sun. It has a barren, rocky surface covered with craters.</p>
+            </div>
+
+            <section class="r8-feature box full-span" v-show="isVisible('neptune')">
+                <h2>Neptune: The Windy World</h2>
+                <img src="images/neptune.jpg" alt="Neptune" class="planet-img large-img">
+                <p>Dark, cold, and whipped by supersonic winds, Neptune is the most distant planet in our solar system.</p>
+            </section>
+
+            <main class="r9-desc box" v-show="isVisible('uranus')">
+                <h2>Uranus: The Sideways Planet</h2>
+                <p>Uranus rotates at a nearly 90-degree angle from the plane of its orbit. This makes it appear to spin on its side.</p>
+                <img src="images/uranus.jpg" alt="Uranus" class="planet-img">
+            </main>
+
+            <aside class="r9-fact box stat-box" v-show="isVisible('uranus')">
+                <h3>Uranus Fact</h3>
+                <p>Uranus has 27 known moons named after Shakespearean characters.</p>
+            </aside>
+
+            <footer class="footer full-span">
+                <p>&copy; 2026 The Planetary Database.</p>
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+            setup() {
+                // Tracks what the user is typing in the box
+                const searchQuery = ref('');
+
+                // A helper function that checks if a specific block should be visible
+                const isVisible = (planetName) => {
+                    // If the search box is empty, show everything (return true)
+                    if (searchQuery.value === '') {
+                        return true;
+                    }
+                    // Otherwise, check if the planet's name includes whatever the user typed
+                    return planetName.toLowerCase().includes(searchQuery.value.toLowerCase());
+                };
+
+                return {
+                    searchQuery,
+                    isVisible
+                }
+            }
+        }).mount('#app');
+    </script>
+
+</body>
+</html>
