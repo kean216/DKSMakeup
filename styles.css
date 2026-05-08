@@ -28,6 +28,8 @@ body {
     border-radius: 8px;
     padding: 20px;
     text-align: center;
+    /* Smooth transition when the boxes change size */
+    transition: all 0.4s ease;
 }
 
 h1, h2, h3 { color: #00f0ff; margin-bottom: 10px; }
@@ -38,8 +40,8 @@ h1, h2, h3 { color: #00f0ff; margin-bottom: 10px; }
     border-radius: 8px;
     margin-top: 15px;
     object-fit: cover;
-    /* Smooth transition for the hover effect */
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    /* Smooth transition for the hover effect and resize effect */
+    transition: transform 0.4s ease, box-shadow 0.4s ease, max-height 0.4s ease;
     cursor: pointer;
 }
 
@@ -149,4 +151,22 @@ h1, h2, h3 { color: #00f0ff; margin-bottom: 10px; }
         grid-column: span 1;
     }
     .r6-gallery { grid-column: span 1; grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Dynamic Search */
+
+/* 1. Make the remaining boxes stretch across the whole screen */
+.is-searching .box {
+    grid-column: span 4 !important; 
+}
+
+/* 2. Make all visible images much larger when searching */
+.is-searching .planet-img {
+    max-height: 500px !important; 
+    object-position: center;
+}
+
+/* 3. Keep the gallery items normal so they don't explode in size */
+.is-searching .gallery-card img {
+    max-height: 60px !important;
 }
