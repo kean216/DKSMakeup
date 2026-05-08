@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Planetary Database - Grid Layout (Vue Upgraded)</title>
+    
     <link rel="stylesheet" href="styles.css">
     
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <style>
         .search-container {
-            grid-column: 1 / -1; /* Spans the full grid */
+            grid-column: 1 / -1; 
             text-align: center;
             margin-bottom: 20px;
+            padding: 20px;
         }
         .search-box {
             width: 80%;
@@ -42,7 +44,7 @@
                     placeholder="Type a planet name to instantly filter the grid..."
                 >
             </div>
-
+            
             <aside class="r3-fact box" v-show="isVisible('mars')">
                 <h3>Mars Fact</h3>
                 <p>Gravity is only 38% of Earth's.</p>
@@ -126,17 +128,13 @@
 
         createApp({
             setup() {
-                // Tracks what the user is typing in the box
                 const searchQuery = ref('');
 
-                // A helper function that checks if a specific block should be visible
                 const isVisible = (planetName) => {
-                    // If the search box is empty, show everything (return true)
-                    if (searchQuery.value === '') {
+                    if (searchQuery.value.trim() === '') {
                         return true;
                     }
-                    // Otherwise, check if the planet's name includes whatever the user typed
-                    return planetName.toLowerCase().includes(searchQuery.value.toLowerCase());
+                    return planetName.toLowerCase().includes(searchQuery.value.toLowerCase().trim());
                 };
 
                 return {
@@ -148,4 +146,3 @@
     </script>
 
 </body>
-</html>
