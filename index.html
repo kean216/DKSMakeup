@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <style>
+        /* Search Bar Styling */
         .search-container {
             grid-column: 1 / -1; 
             text-align: center;
@@ -19,17 +20,27 @@
         .search-box {
             width: 80%;
             max-width: 500px;
-            padding: 12px;
-            font-size: 1.1rem;
-            border: 2px solid #333;
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #00f0ff;
             border-radius: 8px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+        .search-box:focus {
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.8);
+        }
+        .search-box::placeholder {
+            color: #aaa;
         }
     </style>
 </head>
 <body>
 
     <div id="app">
-        <div class="grid-container">
+        <div class="grid-container" :class="{ 'is-searching': searchQuery.trim() !== '' }">
 
             <header class="header full-span">
                 <h1>The Planetary Database</h1>
@@ -41,7 +52,7 @@
                     type="text" 
                     class="search-box" 
                     v-model="searchQuery" 
-                    placeholder="Type a planet name to instantly filter the grid..."
+                    placeholder="Type a planet name to instantly zoom..."
                 >
             </div>
             
@@ -146,3 +157,4 @@
     </script>
 
 </body>
+</html>
